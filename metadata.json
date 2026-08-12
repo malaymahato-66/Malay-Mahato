@@ -1,0 +1,6 @@
+{
+  "name": "Shibu Dar Saloon",
+  "description": "A deeply nostalgic interactive barber shop experience featuring retro sights, sound effects, rotating memories, and a YouTube music player.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

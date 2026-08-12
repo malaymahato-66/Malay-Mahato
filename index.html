@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shibu Dar Saloon • Nostalgic Barber Shop</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN for instant styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            saloon: {
+              teal: '#1a3a3a',
+              mint: '#2d5a52',
+              brass: '#d4af37',
+              gold: '#f3e5ab',
+              cream: '#fbf8f1',
+              dark: '#0e1817',
+              accent: '#d9534f',
+              leather: '#5c2c16'
+            }
+          },
+          fontFamily: {
+            title: ['"Rozha One"', 'serif'],
+            vintage: ['"Cinzel"', 'serif'],
+            handwritten: ['"Caveat"', 'cursive'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0e1817;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d5a52;
+      border-radius: 3px;
+    }
+
+    /* Barber Pole Stripe Animation */
+    @keyframes barberStripe {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 40px; }
+    }
+    .barber-pole-stripes {
+      background: repeating-linear-gradient(
+        -45deg,
+        #dc2626,
+        #dc2626 12px,
+        #ffffff 12px,
+        #ffffff 24px,
+        #2563eb 24px,
+        #2563eb 36px,
+        #ffffff 36px,
+        #ffffff 48px
+      );
+      background-size: 100% 68px;
+      animation: barberStripe 2s linear infinite;
+    }
+
+    /* Vintage Wall Texture & Mirror Frame */
+    .saloon-wall-bg {
+      background-color: #0d1a19;
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 10% 80%, rgba(45, 90, 82, 0.3) 0%, transparent 50%),
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 12px);
+    }
+
+    .mirror-border {
+      box-shadow: 
+        0 0 0 12px #3a2215,
+        0 0 0 16px #d4af37,
+        0 20px 50px rgba(0,0,0,0.8),
+        inset 0 0 30px rgba(255,255,255,0.2);
+    }
+
+    .mirror-glass {
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 40%, rgba(0,0,0,0.2) 100%);
+      backdrop-filter: blur(1px);
+    }
+
+    /* Floating Particles Canvas Overlay */
+    #dustCanvas, #mistCanvas {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+    }
+
+    /* Glassmorphism Card */
+    .glass-panel {
+      background: rgba(18, 32, 30, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+    }
+
+    .glass-panel-gold {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(18, 32, 30, 0.85) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+    }
+
+    /* Pulse Glow */
+    @keyframes neonGlow {
+      0%, 100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.8)); }
+      50% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(52, 211, 153, 0.3)); }
+    }
+    .neon-dot {
+      animation: neonGlow 2s ease-in-out infinite;
+    }
+
+    /* Scissor Cut Effect Animation */
+    @keyframes scissorSnap {
+      0% { transform: rotate(0deg); }
+      30% { transform: rotate(-25deg); }
+      60% { transform: rotate(5deg); }
+      100% { transform: rotate(0deg); }
+    }
+    .scissor-action {
+      animation: scissorSnap 0.35s ease-in-out;
+    }
+
+    /* Chai Steam Animation */
+    @keyframes steamRise {
+      0% { transform: translateY(0) scaleX(1); opacity: 0.6; }
+      50% { transform: translateY(-12px) scaleX(1.3); opacity: 0.3; }
+      100% { transform: translateY(-24px) scaleX(1.6); opacity: 0; }
+    }
+    .steam-line {
+      animation: steamRise 2.5s infinite ease-out;
+    }
+    .steam-line-delayed {
+      animation: steamRise 2.5s infinite ease-out 1.2s;
+    }
+
+    /* Audio Visualizer Bars */
+    @keyframes barDance {
+      0%, 100% { height: 4px; }
+      50% { height: 20px; }
+    }
+    .v-bar-1 { animation: barDance 0.8s ease-in-out infinite; }
+    .v-bar-2 { animation: barDance 0.6s ease-in-out infinite 0.2s; }
+    .v-bar-3 { animation: barDance 0.9s ease-in-out infinite 0.1s; }
+    .v-bar-4 { animation: barDance 0.7s ease-in-out infinite 0.3s; }
+  </style>
+</head>
+<body class="saloon-wall-bg text-saloon-cream min-h-screen font-sans relative overflow-x-hidden select-none pb-32">
+
+  <!-- Canvases for atmospheric effects -->
+  <canvas id="dustCanvas"></canvas>
+  <canvas id="mistCanvas"></canvas>
+
+  <!-- TOP HEADER / NAV -->
+  <header class="w-full max-w-7xl mx-auto px-4 py-4 md:py-6 flex flex-col md:flex-row items-center justify-between gap-4 border-b border-saloon-brass/20 relative z-20">
+    
+    <!-- Title & Brand -->
+    <div class="flex items-center gap-4">
+      <!-- Mini Barber Pole Icon -->
+      <div class="w-8 h-14 rounded-full border-2 border-saloon-brass overflow-hidden relative shadow-lg shadow-black/60 shrink-0">
+        <div class="w-full h-full barber-pole-stripes"></div>
+      </div>
+
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs uppercase tracking-widest text-saloon-brass font-vintage">EST. 1994 • NEIGHBORHOOD SALOON</span>
+          <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/40">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 neon-dot"></span> OPEN NOW
+          </span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-title text-saloon-gold tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          SHIBU DAR SALOON
+        </h1>
+      </div>
+    </div>
+
+    <!-- Quick Status Badges -->
+    <div class="flex flex-wrap items-center justify-center md:justify-end gap-2 text-xs font-mono">
+      <div class="glass-panel px-3 py-1.5 rounded-md border border-saloon-brass/30 flex items-center gap-2">
+        <span class="text-saloon-brass font-bold">TOKEN IN CHAIR:</span>
+        <span class="text-emerald-300 font-bold bg-emerald-900/50 px-1.5 py-0.5 rounded">#04</span>
+      </div>
+      <div class="glass-panel px-3 py-1.5 rounded-md border border-saloon-brass/30 flex items-center gap-2">
+        <span class="text-saloon-brass font-bold">WAITING:</span>
+        <span class="text-amber-300 font-bold">2 Uncles + 1 Kid</span>
+      </div>
+      <div class="glass-panel px-3 py-1.5 rounded-md border border-saloon-brass/30 flex items-center gap-2">
+        <span class="text-saloon-brass font-bold">TODAY'S SPECIAL:</span>
+        <span class="text-saloon-gold">Navratna Cooling Head Massage (₹20)</span>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- MAIN INTERACTIVE WORKSPACE -->
+  <main class="w-full max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-20">
+
+    <!-- LEFT COLUMN: Barber Pole & Vintage Posters/Clippings -->
+    <section class="lg:col-span-3 flex flex-col gap-6 order-2 lg:order-1">
+      
+      <!-- Interactive Barber Pole Widget -->
+      <div class="glass-panel rounded-xl p-5 border border-saloon-brass/30 flex flex-col items-center text-center shadow-2xl relative overflow-hidden group">
+        <div class="text-xs uppercase tracking-widest text-saloon-brass font-vintage mb-3">Authentic Barber Pole</div>
+        
+        <div class="relative cursor-pointer" id="barberPoleBtn" title="Click to spin faster!">
+          <div class="w-14 h-48 sm:w-16 sm:h-56 rounded-full border-4 border-saloon-brass/80 overflow-hidden relative shadow-[0_0_25px_rgba(212,175,55,0.3)] bg-slate-900">
+            <div id="barberPoleStripes" class="w-full h-full barber-pole-stripes"></div>
+            <!-- Glass shine effect -->
+            <div class="absolute inset-0 bg-gradient-to-r from-white/30 via-transparent to-black/50 pointer-events-none"></div>
+          </div>
+          <div class="text-[10px] text-saloon-gold/70 mt-2 font-mono">Click to toggle speed</div>
+        </div>
+
+        <p class="text-xs text-slate-300 italic mt-3">
+          "If the pole is spinning, Shibu Da is ready with the hot towel!"
+        </p>
+      </div>
+
+      <!-- Retro Haircut Price Board & Posters -->
+      <div class="glass-panel rounded-xl p-5 border border-saloon-brass/30 shadow-2xl relative">
+        <div class="flex items-center justify-between border-b border-saloon-brass/30 pb-2 mb-3">
+          <h3 class="font-vintage text-sm font-bold text-saloon-gold uppercase tracking-wider">Rate Card (1998)</h3>
+          <span class="text-[10px] bg-saloon-brass/20 text-saloon-gold px-2 py-0.5 rounded font-mono">CASH ONLY</span>
+        </div>
+
+        <ul class="space-y-2 text-xs font-mono">
+          <li class="flex justify-between items-center text-slate-200">
+            <span>• Standard Gentleman Haircut</span>
+            <span class="text-saloon-brass font-bold">₹ 15.00</span>
+          </li>
+          <li class="flex justify-between items-center text-slate-200">
+            <span>• DDLG / SRK Style Cut</span>
+            <span class="text-saloon-brass font-bold">₹ 25.00</span>
+          </li>
+          <li class="flex justify-between items-center text-slate-200">
+            <span>• Clean Shave (Warm Towel)</span>
+            <span class="text-saloon-brass font-bold">₹ 10.00</span>
+          </li>
+          <li class="flex justify-between items-center text-slate-200">
+            <span>• Navratna Cool Head Massage</span>
+            <span class="text-saloon-brass font-bold">₹ 20.00</span>
+          </li>
+          <li class="flex justify-between items-center text-slate-200">
+            <span>• Beard Trim & Mustache Shape</span>
+            <span class="text-saloon-brass font-bold">₹ 08.00</span>
+          </li>
+        </ul>
+
+        <!-- Wall Poster Note -->
+        <div class="mt-4 p-3 bg-amber-950/40 border border-amber-500/30 rounded-lg text-center">
+          <span class="text-amber-200 font-handwritten text-lg block">"Sunday Special: Free Cutting Chai with Head Massage!"</span>
+        </div>
+      </div>
+
+      <!-- Memory Sticker Clipboard -->
+      <div class="glass-panel rounded-xl p-4 border border-saloon-brass/30 text-xs text-slate-300 space-y-2 font-handwritten text-base leading-snug bg-amber-950/20">
+        <div class="font-vintage text-xs uppercase tracking-wider text-saloon-gold font-sans font-bold border-b border-saloon-brass/20 pb-1">
+          📌 Shibu Da's Rulebook
+        </div>
+        <p>1. No political fights during World Cup matches.</p>
+        <p>2. Don't touch the brass scissors without asking.</p>
+        <p>3. Keep the Anandabazar newspaper back on the table!</p>
+      </div>
+
+    </section>
+
+    <!-- CENTER COLUMN: The Central Saloon Mirror & Interactive Shelf -->
+    <section class="lg:col-span-6 flex flex-col items-center gap-6 order-1 lg:order-2">
+
+      <!-- ROTATING NOSTALGIC QUOTE / MEMORY CARD -->
+      <div class="w-full glass-panel-gold rounded-2xl p-5 text-center relative overflow-hidden shadow-2xl border border-saloon-brass/50 min-h-[110px] flex flex-col justify-center items-center">
+        <div class="absolute top-2 left-3 text-[10px] font-vintage text-saloon-brass tracking-widest uppercase flex items-center gap-1">
+          <span>✨</span> NEIGHBORHOOD MEMORIES <span>✨</span>
+        </div>
+        
+        <div id="quoteContainer" class="transition-all duration-700 opacity-100 transform translate-y-0 px-4">
+          <p id="quoteText" class="text-lg md:text-xl font-handwritten text-saloon-gold font-bold leading-relaxed">
+            "Bhai, piche se thoda chhota kar doon? — Shibu Da checking with the hand mirror."
+          </p>
+          <span id="quoteAuthor" class="text-xs font-mono text-emerald-300/80 mt-1 block">
+            — Memory #01 • Sunday Salon Queue
+          </span>
+        </div>
+
+        <div class="absolute bottom-2 right-3 flex items-center gap-1.5 text-[10px] font-mono text-saloon-brass/60">
+          <span>Auto-rotating</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-saloon-brass animate-ping"></span>
+        </div>
+      </div>
+
+      <!-- CENTRAL HERO OBJECT: The Vintage Mirror & Workstation -->
+      <div class="w-full relative flex flex-col items-center">
+        
+        <!-- Hanging Lamp Glow above mirror -->
+        <div class="w-32 h-1 bg-saloon-brass/80 rounded-full mb-1 shadow-[0_0_20px_#f3e5ab]"></div>
+        <div class="w-16 h-8 bg-gradient-to-b from-amber-700 to-amber-950 rounded-t-full border-t border-saloon-gold flex items-center justify-center relative shadow-lg">
+          <div class="w-3 h-3 rounded-full bg-saloon-gold shadow-[0_0_15px_#f3e5ab] animate-pulse"></div>
+        </div>
+
+        <!-- The Big Mirror Frame -->
+        <div class="w-full max-w-lg aspect-[4/3] rounded-3xl mirror-border mirror-glass relative overflow-hidden flex flex-col items-center justify-between p-6 text-center shadow-[0_25px_60px_rgba(0,0,0,0.9)] my-2">
+          
+          <!-- Mirror Reflection / Dust Background -->
+          <div class="absolute inset-0 bg-gradient-to-b from-teal-900/30 via-emerald-950/20 to-black/60 pointer-events-none"></div>
+
+          <!-- Top Mirror Sticker -->
+          <div class="relative z-10 bg-black/50 border border-saloon-brass/40 px-3 py-1 rounded-full text-xs font-vintage text-saloon-gold tracking-widest uppercase">
+            SHIBU DA'S MIRROR • PRESS SPACE TO TRIM
+          </div>
+
+          <!-- Central Interactive Haircut Avatar / Mirror Sight -->
+          <div class="relative z-10 my-auto flex flex-col items-center group cursor-pointer" id="centerMirrorTarget" title="Click mirror for scissor trim!">
+            <!-- Haircut Silhouette or Vintage Icon -->
+            <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-full border-2 border-saloon-brass/50 bg-teal-950/60 p-2 flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-300 shadow-inner">
+              
+              <!-- Barber Scissor Graphic -->
+              <svg id="scissorGraphic" class="w-16 h-16 sm:w-20 sm:h-20 text-saloon-gold drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.828 2.828A4 4 0 1011 21.828l2.828-2.828m0 0l2.828-2.828M7.172 7.172A4 4 0 111.515 1.515 4 4 0 017.172 7.172z" />
+              </svg>
+
+              <!-- Scissors Animated Blades Overlay -->
+              <div id="scissorBlades" class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                <div class="text-3xl text-saloon-gold font-bold animate-bounce">✂️</div>
+              </div>
+            </div>
+
+            <span class="mt-3 text-xs font-mono text-saloon-gold/90 bg-black/60 px-3 py-1 rounded-md border border-saloon-brass/30 group-hover:bg-saloon-brass group-hover:text-black transition-colors">
+              ✂️ Click screen or press SPACE for Scissor Sound
+            </span>
+          </div>
+
+          <!-- Bottom Mirror Reflection Label -->
+          <div class="relative z-10 text-[11px] font-handwritten text-slate-300 tracking-wide">
+            "Look in the mirror... You're looking sharp, my friend!"
+          </div>
+
+        </div>
+
+        <!-- THE BARBER WORKSTATION SHELF (Interactive Tools) -->
+        <div class="w-full max-w-xl bg-gradient-to-r from-amber-950 via-yellow-950 to-amber-950 border-2 border-saloon-brass/60 rounded-xl p-4 shadow-2xl mt-3 flex items-center justify-around gap-2 relative z-20">
+          
+          <!-- Tool 1: Water Spray Bottle -->
+          <button id="sprayBtn" class="flex flex-col items-center gap-1 group p-2 rounded-lg hover:bg-saloon-brass/20 transition-all transform hover:-translate-y-1 active:translate-y-0" title="Click to spray water mist! (Hotkey: S)">
+            <div class="w-10 h-10 rounded-full bg-teal-900 border border-saloon-brass flex items-center justify-center text-xl shadow-md group-hover:shadow-teal-400/50">
+              💦
+            </div>
+            <span class="text-[10px] font-mono text-saloon-gold font-bold">Water Spray</span>
+            <span class="text-[9px] font-mono text-slate-400">[Press S]</span>
+          </button>
+
+          <!-- Tool 2: Cuticura Powder Bottle -->
+          <button id="powderBtn" class="flex flex-col items-center gap-1 group p-2 rounded-lg hover:bg-saloon-brass/20 transition-all transform hover:-translate-y-1 active:translate-y-0" title="Click for Talcum Powder poof! (Hotkey: P)">
+            <div class="w-10 h-10 rounded-full bg-amber-900 border border-saloon-brass flex items-center justify-center text-xl shadow-md group-hover:shadow-amber-400/50">
+              🧴
+            </div>
+            <span class="text-[10px] font-mono text-saloon-gold font-bold">Cuticura Powder</span>
+            <span class="text-[9px] font-mono text-slate-400">[Press P]</span>
+          </button>
+
+          <!-- Tool 3: Brass Scissors -->
+          <button id="scissorsBtn" class="flex flex-col items-center gap-1 group p-2 rounded-lg hover:bg-saloon-brass/20 transition-all transform hover:-translate-y-1 active:translate-y-0" title="Click for Snip-Snip sound! (Hotkey: C or Space)">
+            <div class="w-10 h-10 rounded-full bg-saloon-brass/30 border border-saloon-brass flex items-center justify-center text-xl shadow-md group-hover:shadow-yellow-400/50">
+              ✂️
+            </div>
+            <span class="text-[10px] font-mono text-saloon-gold font-bold">Brass Scissors</span>
+            <span class="text-[9px] font-mono text-slate-400">[Space/C]</span>
+          </button>
+
+          <!-- Tool 4: Hot Cutting Chai Glass -->
+          <div class="flex flex-col items-center gap-1 p-2 relative group cursor-pointer" id="chaiBtn" title="Shibu Da's Hot Cutting Chai">
+            <div class="w-10 h-10 rounded-full bg-amber-950 border border-amber-500/50 flex items-center justify-center text-xl shadow-md relative">
+              <!-- Steam lines -->
+              <span class="absolute -top-3 left-3 text-xs text-amber-200/60 steam-line">~</span>
+              <span class="absolute -top-3 left-5 text-xs text-amber-200/60 steam-line-delayed">~</span>
+              ☕
+            </div>
+            <span class="text-[10px] font-mono text-amber-300 font-bold">Cutting Chai</span>
+            <span class="text-[9px] font-mono text-slate-400">Hot & Sweet</span>
+          </div>
+
+          <!-- Tool 5: Head Massage & Neck Twist -->
+          <button id="massageBtn" class="flex flex-col items-center gap-1 group p-2 rounded-lg hover:bg-saloon-brass/20 transition-all transform hover:-translate-y-1 active:translate-y-0" title="Click for Head Massage & Neck Crack sound! (Hotkey: M)">
+            <div class="w-10 h-10 rounded-full bg-emerald-900 border border-emerald-400 flex items-center justify-center text-xl shadow-md group-hover:shadow-emerald-400/50">
+              💆‍♂️
+            </div>
+            <span class="text-[10px] font-mono text-emerald-300 font-bold">Head Massage</span>
+            <span class="text-[9px] font-mono text-slate-400">[Press M]</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RIGHT COLUMN: Vintage Radio & Local Newspaper Snippets -->
+    <section class="lg:col-span-3 flex flex-col gap-6 order-3">
+
+      <!-- Vintage Radio / Cassette Deck Box -->
+      <div class="glass-panel rounded-xl p-5 border border-saloon-brass/30 shadow-2xl relative overflow-hidden">
+        <div class="flex items-center justify-between border-b border-saloon-brass/30 pb-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📻</span>
+            <h3 class="font-vintage text-sm font-bold text-saloon-gold uppercase tracking-wider">SALOON RADIO</h3>
+          </div>
+          <span class="text-[10px] bg-red-900/60 text-red-300 px-2 py-0.5 rounded font-mono border border-red-500/30">FM 92.7</span>
+        </div>
+
+        <div class="bg-black/70 border border-saloon-brass/20 rounded-lg p-3 text-center space-y-2">
+          <div class="text-xs font-mono text-emerald-400 flex items-center justify-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>TUNED: RETRO REWIND HITS</span>
+          </div>
+          
+          <p class="text-[11px] text-slate-300 italic">
+            "Playing 90s & 2000s classics live from Shibu Da's tape deck."
+          </p>
+
+          <!-- Frequency Dial Graphic -->
+          <div class="w-full bg-slate-900 h-6 rounded border border-saloon-brass/40 relative flex items-center px-2 overflow-hidden my-2">
+            <div class="w-full flex justify-between text-[8px] font-mono text-slate-400">
+              <span>88</span><span>92</span><span>98</span><span>104</span><span>108</span>
+            </div>
+            <!-- Red Frequency Needle -->
+            <div class="absolute left-1/3 top-0 bottom-0 w-0.5 bg-red-500 shadow-[0_0_8px_#ef4444]"></div>
+          </div>
+        </div>
+
+        <!-- Hotkeys Quick Guide -->
+        <div class="mt-4 pt-3 border-t border-saloon-brass/20 text-[11px] font-mono text-slate-300 space-y-1">
+          <div class="text-saloon-gold font-bold font-sans text-xs mb-1">⌨️ Interactive Hotkeys:</div>
+          <div class="flex justify-between"><span>[SPACE] / [C]</span><span class="text-saloon-brass">Scissors Trim</span></div>
+          <div class="flex justify-between"><span>[S]</span><span class="text-saloon-brass">Water Spray</span></div>
+          <div class="flex justify-between"><span>[P]</span><span class="text-saloon-brass">Cuticura Powder</span></div>
+          <div class="flex justify-between"><span>[M]</span><span class="text-saloon-brass">Head Massage</span></div>
+        </div>
+
+      </div>
+
+      <!-- Vintage Newspaper Snippet -->
+      <div class="glass-panel rounded-xl p-4 border border-saloon-brass/30 text-xs text-slate-300 space-y-2 bg-stone-900/40">
+        <div class="font-vintage text-xs uppercase tracking-wider text-saloon-gold font-sans font-bold border-b border-saloon-brass/20 pb-1 flex justify-between items-center">
+          <span>📰 THE DAILY CHRONICLE</span>
+          <span class="text-[9px] font-mono text-slate-400">AUG 1998</span>
+        </div>
+        
+        <h4 class="font-bold text-slate-100 font-serif text-sm leading-tight">
+          Sensation in Neighborhood: Shibu Da Introduces New Cooling Gel Shave!
+        </h4>
+        <p class="text-[11px] text-slate-300 leading-relaxed font-serif">
+          Local customers praise the refreshing menthol aftershave spray. "Best 15 minutes of my Sunday," says long-time patron.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FIXED BOTTOM GLASSMORPHISM YOUTUBE MUSIC PLAYER -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 px-3 py-3 bg-slate-950/80 backdrop-blur-xl border-t border-saloon-brass/40 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
+    <div class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+      
+      <!-- Track Info & Visualizer -->
+      <div class="flex items-center gap-3 w-full md:w-1/3">
+        <!-- Cassette Tape Spinning Icon -->
+        <div class="w-12 h-12 rounded-xl bg-teal-950 border border-saloon-brass/60 flex items-center justify-center shrink-0 shadow-lg relative overflow-hidden group">
+          <span id="cassetteIcon" class="text-2xl transition-transform duration-700">📻</span>
+        </div>
+
+        <div class="overflow-hidden">
+          <div class="text-xs font-vintage text-saloon-brass tracking-wider uppercase flex items-center gap-1.5">
+            <span>SALOON PLAYLIST</span>
+            <!-- Live Audio Visualizer Bars -->
+            <div id="visualizerBars" class="flex items-end gap-0.5 h-3 opacity-40">
+              <span class="w-1 bg-saloon-gold v-bar-1 rounded-full"></span>
+              <span class="w-1 bg-saloon-gold v-bar-2 rounded-full"></span>
+              <span class="w-1 bg-saloon-gold v-bar-3 rounded-full"></span>
+              <span class="w-1 bg-saloon-gold v-bar-4 rounded-full"></span>
+            </div>
+          </div>
+          <div id="trackTitle" class="text-sm font-bold text-saloon-gold truncate max-w-[260px] sm:max-w-[320px]">
+            Nostalgic 90s Radio • Loading Playlist...
+          </div>
+          <div id="trackArtist" class="text-[11px] text-slate-300 truncate">
+            YouTube Playlist: RDWlWlGlvN4L4
+          </div>
+        </div>
+      </div>
+
+      <!-- Player Controls & Progress -->
+      <div class="flex flex-col items-center gap-1 w-full md:w-1/3">
+        
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-4">
+          <!-- Previous Button -->
+          <button id="prevBtn" class="text-slate-300 hover:text-saloon-gold transition-colors p-1" title="Previous Track">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+
+          <!-- Play / Pause Button -->
+          <button id="playBtn" class="w-10 h-10 rounded-full bg-saloon-brass text-slate-950 hover:bg-saloon-gold transition-all transform active:scale-95 flex items-center justify-center shadow-lg shadow-amber-500/30" title="Play / Pause">
+            <svg id="playIcon" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pauseIcon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+
+          <!-- Next Button -->
+          <button id="nextBtn" class="text-slate-300 hover:text-saloon-gold transition-colors p-1" title="Next Track">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full flex items-center gap-2 text-[10px] font-mono text-slate-400">
+          <span id="currentTime">0:00</span>
+          <div class="flex-1 bg-slate-800 h-1.5 rounded-full overflow-hidden cursor-pointer relative group" id="progressBarContainer">
+            <div id="progressBar" class="bg-gradient-to-r from-saloon-brass to-saloon-gold h-full w-0 transition-all duration-300"></div>
+          </div>
+          <span id="durationTime">3:45</span>
+        </div>
+
+      </div>
+
+      <!-- Volume & Playlist Toggle -->
+      <div class="flex items-center justify-end gap-3 w-full md:w-1/3 text-xs">
+        <button id="muteBtn" class="text-slate-300 hover:text-saloon-gold transition-colors">
+          🔊
+        </button>
+        <input id="volumeSlider" type="range" min="0" max="100" value="80" class="w-20 accent-saloon-brass cursor-pointer">
+        
+        <a href="https://youtube.com/playlist?list=RDWlWlGlvN4L4&playnext=1&si=uR5ocK0eaOjNGI_q" target="_blank" class="glass-panel px-3 py-1 rounded-md text-saloon-gold hover:bg-saloon-brass hover:text-black transition-colors font-mono text-[11px] flex items-center gap-1 border border-saloon-brass/30">
+          <span>YouTube</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Hidden YouTube IFrame Container -->
+  <div id="youtubePlayerContainer" class="fixed -bottom-96 left-0 opacity-0 pointer-events-none">
+    <div id="ytplayer"></div>
+  </div>
+
+  <!-- JAVASCRIPT: Web Audio API, Canvas Dust/Mist Particles, YouTube API, Interactive Handlers -->
+  <script>
+    // ==========================================
+    // 1. ROTATING NOSTALGIC MEMORIES / QUOTES
+    // ==========================================
+    const nostalgicQuotes = [
+      { text: "“Bhai, piche se thoda chhota kar doon?” — Shibu Da checking with the hand mirror.", author: "Memory #01 • Sunday Salon Ritual" },
+      { text: "“Navratna cooling oil or Mustard oil today?” — The signature cooling tingle on a hot summer noon.", author: "Memory #02 • Head Massage Classics" },
+      { text: "Sunday 9 AM queue: 4 uncles discussing Indian Cricket Team selection while reading Anandabazar Patrika.", author: "Memory #03 • Local Neighborhood Adda" },
+      { text: "The refreshing mist from the brass spray bottle right before the sharp razor lining.", author: "Memory #04 • Pure Nostalgia" },
+      { text: "“Kaan ke paas thoda trim kar deta hoon...” — The crisp rhythmic snip-snip of vintage scissors.", author: "Memory #05 • The Sound of Craft" },
+      { text: "That magical neck twist crack (chutki) at the end of a 10-minute head massage!", author: "Memory #06 • The Ultimate Relief" },
+      { text: "Listening to 90s Kishore Kumar & Kumar Sanu songs on 92.7 FM over the steady hum of the fan.", author: "Memory #07 • Cassette Tape Rewind" },
+      { text: "“Ghar pe bolna Shibu Da ne bohot badhiya haircut kiya hai!” — Farewell blessing.", author: "Memory #08 • Neighborhood Love" }
+    ];
+
+    let currentQuoteIndex = 0;
+    const quoteContainer = document.getElementById('quoteContainer');
+    const quoteText = document.getElementById('quoteText');
+    const quoteAuthor = document.getElementById('quoteAuthor');
+
+    function rotateQuote() {
+      quoteContainer.style.opacity = '0';
+      quoteContainer.style.transform = 'translateY(8px)';
+      
+      setTimeout(() => {
+        currentQuoteIndex = (currentQuoteIndex + 1) % nostalgicQuotes.length;
+        quoteText.innerText = nostalgicQuotes[currentQuoteIndex].text;
+        quoteAuthor.innerText = '— ' + nostalgicQuotes[currentQuoteIndex].author;
+        
+        quoteContainer.style.opacity = '1';
+        quoteContainer.style.transform = 'translateY(0)';
+      }, 500);
+    }
+    setInterval(rotateQuote, 4500);
+
+
+    // ==========================================
+    // 2. WEB AUDIO API SYNTHESIZER (REAL SOUNDS)
+    // ==========================================
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // Sound 1: Scissors Snip Snip
+    function playScissorSound() {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+
+      // Two quick snip sounds (click-click)
+      [0, 0.12].forEach(offset => {
+        // High frequency noise burst
+        const bufferSize = audioCtx.sampleRate * 0.04;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const output = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const whiteNoise = audioCtx.createBufferSource();
+        whiteNoise.buffer = buffer;
+
+        // High pass filter for metallic scissor sound
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.setValueAtTime(3200, now + offset);
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.35, now + offset);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + offset + 0.035);
+
+        whiteNoise.connect(filter);
+        filter.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        whiteNoise.start(now + offset);
+      });
+    }
+
+    // Sound 2: Water Spray Bottle (Pshhh)
+    function playSpraySound() {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const bufferSize = audioCtx.sampleRate * 0.35;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(2200, now);
+      filter.Q.setValueAtTime(1.5, now);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.4, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      whiteNoise.start(now);
+    }
+
+    // Sound 3: Powder Puff (Poof!)
+    function playPowderSound() {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const bufferSize = audioCtx.sampleRate * 0.25;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = audioCtx.createBufferSource();
+      whiteNoise.buffer = buffer;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(900, now);
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.4, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+
+      whiteNoise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      whiteNoise.start(now);
+    }
+
+    // Sound 4: Neck Crack (Chutki Snap)
+    function playNeckCrackSound() {
+      initAudioContext();
+      if (!audioCtx) return;
+
+      const now = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(120, now);
+      osc.frequency.exponentialRampToValueAtTime(30, now + 0.08);
+
+      gain.gain.setValueAtTime(0.6, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.09);
+    }
+
+
+    // ==========================================
+    // 3. CANVAS ATMOSPHERIC DUST & MIST PARTICLES
+    // ==========================================
+    const dustCanvas = document.getElementById('dustCanvas');
+    const dustCtx = dustCanvas.getContext('2d');
+    const mistCanvas = document.getElementById('mistCanvas');
+    const mistCtx = mistCanvas.getContext('2d');
+
+    let width = dustCanvas.width = mistCanvas.width = window.innerWidth;
+    let height = dustCanvas.height = mistCanvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = dustCanvas.width = mistCanvas.width = window.innerWidth;
+      height = dustCanvas.height = mistCanvas.height = window.innerHeight;
+    });
+
+    // Dust particles
+    const dustParticles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 1.8 + 0.5,
+      alpha: Math.random() * 0.5 + 0.1,
+      speedX: (Math.random() - 0.5) * 0.3,
+      speedY: -Math.random() * 0.4 - 0.1
+    }));
+
+    function renderDust() {
+      dustCtx.clearRect(0, 0, width, height);
+      dustCtx.fillStyle = '#f3e5ab';
+
+      dustParticles.forEach(p => {
+        dustCtx.beginPath();
+        dustCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        dustCtx.fillStyle = `rgba(243, 229, 171, ${p.alpha})`;
+        dustCtx.fill();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.y < 0) p.y = height;
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+      });
+
+      requestAnimationFrame(renderDust);
+    }
+    renderDust();
+
+    // Mist spray particles (triggered on action)
+    let mistParticles = [];
+    function triggerMistExplosion() {
+      const centerX = width / 2;
+      const centerY = height / 2;
+      for (let i = 0; i < 60; i++) {
+        mistParticles.push({
+          x: centerX + (Math.random() - 0.5) * 100,
+          y: centerY + (Math.random() - 0.5) * 100,
+          radius: Math.random() * 6 + 2,
+          alpha: 0.8,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6 - 1
+        });
+      }
+    }
+
+    function renderMist() {
+      mistCtx.clearRect(0, 0, width, height);
+      for (let i = mistParticles.length - 1; i >= 0; i--) {
+        const p = mistParticles[i];
+        mistCtx.beginPath();
+        mistCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        mistCtx.fillStyle = `rgba(200, 240, 255, ${p.alpha})`;
+        mistCtx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.02;
+
+        if (p.alpha <= 0) {
+          mistParticles.splice(i, 1);
+        }
+      }
+      requestAnimationFrame(renderMist);
+    }
+    renderMist();
+
+
+    // ==========================================
+    // 4. INTERACTIVE CLICK & KEYBOARD HANDLERS
+    // ==========================================
+    const centerMirrorTarget = document.getElementById('centerMirrorTarget');
+    const scissorBlades = document.getElementById('scissorBlades');
+    const scissorGraphic = document.getElementById('scissorGraphic');
+
+    function triggerScissorTrim() {
+      playScissorSound();
+      
+      // Visual feedback
+      scissorGraphic.classList.add('scissor-action');
+      scissorBlades.style.opacity = '1';
+
+      setTimeout(() => {
+        scissorGraphic.classList.remove('scissor-action');
+        scissorBlades.style.opacity = '0';
+      }, 350);
+    }
+
+    centerMirrorTarget.addEventListener('click', triggerScissorTrim);
+    document.getElementById('scissorsBtn').addEventListener('click', triggerScissorTrim);
+
+    // Water Spray Button
+    document.getElementById('sprayBtn').addEventListener('click', () => {
+      playSpraySound();
+      triggerMistExplosion();
+    });
+
+    // Cuticura Powder Button
+    document.getElementById('powderBtn').addEventListener('click', () => {
+      playPowderSound();
+      triggerMistExplosion();
+    });
+
+    // Head Massage Button
+    document.getElementById('massageBtn').addEventListener('click', () => {
+      playNeckCrackSound();
+      // Brief screen rumble
+      document.body.classList.add('translate-y-1');
+      setTimeout(() => document.body.classList.remove('translate-y-1'), 100);
+    });
+
+    // Barber Pole Spin Toggle
+    const barberPoleBtn = document.getElementById('barberPoleBtn');
+    const barberPoleStripes = document.getElementById('barberPoleStripes');
+    let isFastSpin = false;
+    barberPoleBtn.addEventListener('click', () => {
+      playScissorSound();
+      isFastSpin = !isFastSpin;
+      barberPoleStripes.style.animationDuration = isFastSpin ? '0.6s' : '2s';
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      
+      if (e.code === 'Space' || e.key.toLowerCase() === 'c') {
+        e.preventDefault();
+        triggerScissorTrim();
+      } else if (e.key.toLowerCase() === 's') {
+        playSpraySound();
+        triggerMistExplosion();
+      } else if (e.key.toLowerCase() === 'p') {
+        playPowderSound();
+        triggerMistExplosion();
+      } else if (e.key.toLowerCase() === 'm') {
+        playNeckCrackSound();
+      }
+    });
+
+
+    // ==========================================
+    // 5. YOUTUBE IFRAME PLAYER INTEGRATION
+    // ==========================================
+    let player;
+    let isPlaying = false;
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const trackTitle = document.getElementById('trackTitle');
+    const trackArtist = document.getElementById('trackArtist');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationTimeEl = document.getElementById('durationTime');
+    const progressBar = document.getElementById('progressBar');
+    const progressBarContainer = document.getElementById('progressBarContainer');
+    const visualizerBars = document.getElementById('visualizerBars');
+    const cassetteIcon = document.getElementById('cassetteIcon');
+
+    // Pre-coded Nostalgic Track List Fallback metadata
+    const playlistFallback = [
+      { title: "Pehla Nasha • Jo Jeeta Wohi Sikandar", artist: "Kishore & Udit Narayan Nostalgia" },
+      { title: "Roop Tera Mastana • Retro Classic", artist: "Kishore Kumar Hits" },
+      { title: "Tujhe Dekha Toh • DDLG Special", artist: "Kumar Sanu & Lata Mangeshkar" },
+      { title: "Ek Ladki Ko Dekha Toh • 1942 A Love Story", artist: "Kumar Sanu • Saloon Favorite" },
+      { title: "Tere Naam Title Track • 90s Salon Classic", artist: "Udit Narayan & Alka Yagnik" }
+    ];
+    let currentTrackIdx = 0;
+
+    // Load YouTube IFrame API Script
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('ytplayer', {
+        height: '200',
+        width: '200',
+        playerVars: {
+          'listType': 'playlist',
+          'list': 'RDWlWlGlvN4L4',
+          'autoplay': 0,
+          'controls': 0,
+          'modestbranding': 1,
+          'rel': 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      updateTrackInfo();
+      // Set volume
+      player.setVolume(80);
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        visualizerBars.classList.remove('opacity-40');
+        cassetteIcon.classList.add('animate-spin');
+        updateTrackInfo();
+      } else {
+        isPlaying = false;
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        visualizerBars.classList.add('opacity-40');
+        cassetteIcon.classList.remove('animate-spin');
+      }
+    }
+
+    function updateTrackInfo() {
+      if (player && player.getVideoData) {
+        const videoData = player.getVideoData();
+        if (videoData && videoData.title) {
+          trackTitle.innerText = videoData.title;
+          trackArtist.innerText = videoData.author || 'Shibu Da\'s YouTube Radio';
+          return;
+        }
+      }
+      // Fallback
+      trackTitle.innerText = playlistFallback[currentTrackIdx].title;
+      trackArtist.innerText = playlistFallback[currentTrackIdx].artist;
+    }
+
+    // Toggle Play/Pause
+    playBtn.addEventListener('click', () => {
+      initAudioContext();
+      if (!player) return;
+      
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.playVideo();
+      }
+    });
+
+    // Next / Prev Track Controls
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (player && player.nextVideo) {
+        player.nextVideo();
+      }
+      currentTrackIdx = (currentTrackIdx + 1) % playlistFallback.length;
+      updateTrackInfo();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+      if (player && player.previousVideo) {
+        player.previousVideo();
+      }
+      currentTrackIdx = (currentTrackIdx - 1 + playlistFallback.length) % playlistFallback.length;
+      updateTrackInfo();
+    });
+
+    // Update Progress Bar Interval
+    setInterval(() => {
+      if (player && player.getCurrentTime && player.getDuration) {
+        const cur = player.getCurrentTime() || 0;
+        const dur = player.getDuration() || 1;
+        const pct = (cur / dur) * 100;
+
+        progressBar.style.width = pct + '%';
+        currentTimeEl.innerText = formatTime(cur);
+        durationTimeEl.innerText = formatTime(dur);
+      }
+    }, 800);
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+
+    // Click to Seek
+    progressBarContainer.addEventListener('click', (e) => {
+      if (!player || !player.getDuration) return;
+      const rect = progressBarContainer.getBoundingClientRect();
+      const clickPos = (e.clientX - rect.left) / rect.width;
+      const duration = player.getDuration();
+      player.seekTo(clickPos * duration, true);
+    });
+
+    // Volume Slider & Mute
+    const volumeSlider = document.getElementById('volumeSlider');
+    const muteBtn = document.getElementById('muteBtn');
+    volumeSlider.addEventListener('input', (e) => {
+      if (player && player.setVolume) {
+        player.setVolume(e.target.value);
+      }
+    });
+
+    let isMuted = false;
+    muteBtn.addEventListener('click', () => {
+      if (!player) return;
+      isMuted = !isMuted;
+      if (isMuted) {
+        player.mute();
+        muteBtn.innerText = '🔇';
+      } else {
+        player.unMute();
+        muteBtn.innerText = '🔊';
+      }
+    });
+
+  </script>
+</body>
+</html>
